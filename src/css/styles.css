@@ -1,3 +1,36 @@
+:root {
+  /* font-family: Inter, Avenir, Helvetica, Arial, sans-serif; */
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color: #242424;
+  background-color: rgba(255, 255, 255, 0.87);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-width: 100vw;
+  min-height: 100vh;
+  margin: 0;
+}
+
+main {
+  flex-grow: 1;
+}
+main:has(.back-link) {
+  text-align: center;
+}
+
 h1,
 h2,
 h3,
@@ -33,13 +66,6 @@ img {
   height: auto;
 }
 
-body {
-  display: flex;
-  flex-direction: column;
-  min-width: 100vw;
-  min-height: 100vh;
-  margin: 0;
-}
 .form {
   margin: 36px auto;
 }
@@ -76,6 +102,7 @@ body {
   border-color: #cfcfcf;
   background: #fafafa;
 }
+
 .btn {
   display: inline-block;
   padding: 8px 16px;
@@ -96,27 +123,17 @@ body {
 }
 
 .btn-search {
-  display: inline-block;
   margin-left: 8px;
 
-  padding: 8px 16px;
   width: 91px;
   height: 40px;
+}
 
-  font-family: 'Montserrat', sans-serif;
-  line-height: 1.5;
-  font-size: 16px;
-  letter-spacing: 0.04em;
-  font-weight: 500;
-  color: #fff;
-  background: #4e75ff;
-  border-radius: 8px;
-  border: none;
-  border-color: transparent;
+.btn-load {
+  margin: 32px auto 36px;
 
-  text-decoration: none;
-  text-align: center;
-  transition: 0.3s ease;
+  width: 125px;
+  height: 40px;
 }
 
 .btn-search:hover,
@@ -126,11 +143,9 @@ body {
   background: #6c8cff;
 }
 
-.container {
+.container-gallery {
   padding: 0 15px;
-
-  margin-left: auto;
-  margin-right: auto;
+  margin-inline: auto;
 }
 
 .gallery {
@@ -187,12 +202,6 @@ body {
   justify-content: center;
   flex-direction: column;
 }
-.btn-load {
-  margin: 32px auto 36px;
-
-  width: 125px;
-  height: 40px;
-}
 
 .tittle {
   font-family: 'Montserrat', sans-serif;
@@ -213,6 +222,24 @@ body {
   letter-spacing: 0.04em;
   color: #2e2f42;
 }
+
+/*стилі для лоедера*/
+
+.loader:after {
+  content: '';
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  border: 5px solid #fff;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  animation: scaleUp 1s linear infinite;
+}
+
 .loader {
   color: #fff;
   font-size: 10px;
@@ -259,4 +286,8 @@ body {
     box-shadow: 0em -3em 0 0, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em,
       0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0, -2em -2em 0 0.2em;
   }
+}
+
+.loader-load {
+  margin: 10px auto; /* Відцентровуємо */
 }
