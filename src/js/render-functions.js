@@ -53,3 +53,22 @@ export function showNoResultsMessage(message) {
     position: 'topRight',
   });
 }
+export function clearGallery() {
+  gallery.innerHTML = '';
+}
+
+export function showLoader() {
+  loader.classList.add('is-visible');
+}
+
+export function hideLoader() {
+  loader.classList.remove('is-visible');
+}
+
+export function showLoadMoreButton() {
+  loadMoreBtn.classList.add('is-visible');
+}
+
+export function hideLoadMoreButton() {
+  loadMoreBtn.classList.remove('is-visible');
+}
