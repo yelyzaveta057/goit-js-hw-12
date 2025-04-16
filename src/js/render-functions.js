@@ -42,7 +42,8 @@ export function createImageMarkup(images) {
 export function updateGallery(images) {
   const gallery = document.querySelector('.gallery');
   gallery.innerHTML = createImageMarkup(images);
-  lightbox.refresh(); // Оновлюємо SimpleLightbox після додавання нових зображень
+  lightbox.refresh();
+  smoothScroll();
 }
 
 // Функція для показу повідомлення про помилку
