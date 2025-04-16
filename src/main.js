@@ -1,5 +1,6 @@
-import { searchImages } from './js/pixabay-api.js';
+import { searchImages, resetPage } from './js/pixabay-api.js';
 import { updateGallery, showNoResultsMessage } from './js/render-functions.js';
+import { smoothScroll } from './js/render-functions.js';
 
 const form = document.querySelector('.form');
 const input = document.querySelector('.input-search');
