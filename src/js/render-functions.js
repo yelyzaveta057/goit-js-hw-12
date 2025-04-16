@@ -37,16 +37,13 @@ export function createImageMarkup(images) {
     )
     .join('');
 }
-
-// Функція для оновлення галереї
 export function updateGallery(images) {
   const gallery = document.querySelector('.gallery');
-  gallery.innerHTML = createImageMarkup(images);
-  lightbox.refresh();
-  smoothScroll();
+  gallery.insertAdjacentHTML('beforeend', createImageMarkup(images));
+  lightbox.refresh(); // Оновлюємо SimpleLightbox після додавання нових зображень
+  smoothScroll(); // додаємо скролл
 }
 
-// Функція для показу повідомлення про помилку
 export function showNoResultsMessage(message) {
   iziToast.error({
     title: 'Error',
@@ -54,6 +51,7 @@ export function showNoResultsMessage(message) {
     position: 'topRight',
   });
 }
+
 export function smoothScroll() {
   const firstCard = document.querySelector('.gallery-item');
 
