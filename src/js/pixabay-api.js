@@ -5,9 +5,9 @@ const BASE_URL = 'https://pixabay.com/api/';
 let PER_PAGE = 15;
 let page = 1;
 
-export function searchImages(query) {
-  return axios
-    .get(BASE_URL, {
+export async function searchImages(query) {
+  try {
+    const response = await axios.get(BASE_URL, {
       params: {
         key: API_KEY,
         q: query,
@@ -17,13 +17,15 @@ export function searchImages(query) {
         per_page: PER_PAGE,
         page: page,
       },
-    })
-
-    .then(response => response.data.hits)
-    .catch(error => {
-      console.error('Помилка під час запиту:', error.message); // Лише виводимо помилку в консоль
-      return [];
     });
+
+    page += 1;
+
+    return { images: response.data.hits, totalHits: response.data.totalHits };
+  } catch (error) {
+    console.error('Error fetching images:', error.message);
+    return { images: [], totalHits: 0 };
+  }
 }
 
 export function resetPage() {
