@@ -22,3 +22,6 @@ export function searchImages(query) {
       return [];
     });
 }
+export function resetPage() {
+  page = 1;
+}
