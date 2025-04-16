@@ -17,7 +17,7 @@ let currentQuery = '';
 let totalHits = 0;
 let imagesLoaded = 0;
 
-form.addEventListener('submit', function (event) {
+form.addEventListener('submit', async function (event) {
   event.preventDefault();
 
   const query = input.value.trim();
@@ -34,75 +34,73 @@ form.addEventListener('submit', function (event) {
 
   currentQuery = query;
 
-  searchImages(currentQuery)
-    .then(({ images, totalHits: hits }) => {
-      loader.style.display = 'none';
+  try {
+    const { images, totalHits: hits } = await searchImages(currentQuery);
 
-      if (images.length === 0) {
-        showNoResultsMessage(
-          'Sorry, there are no images matching your search query. Please try again!'
-        );
-        return;
-      }
+    loader.style.display = 'none';
 
-      totalHits = hits;
-      imagesLoaded = images.length;
+    if (images.length === 0) {
+      showNoResultsMessage(
+        'Sorry, there are no images matching your search query. Please try again!'
+      );
+      return;
+    }
 
-      updateGallery(images);
+    totalHits = hits;
+    imagesLoaded = images.length;
 
-      if (imagesLoaded < totalHits) {
-        btnLoad.style.display = 'block';
-      } else {
-        btnLoad.style.display = 'none'; // Якщо тільки 1 фото, ховаємо кнопку
-        showNoResultsMessage(
-          "We're sorry, but you've reached the end of search results."
-        );
-      }
-    })
-    .catch(error => {
-      loader.style.display = 'none';
-      showNoResultsMessage('Error fetching images. Please try again!');
-      console.error('Помилка сервера:', error.message);
-    });
+    updateGallery(images);
+
+    if (imagesLoaded < totalHits) {
+      btnLoad.style.display = 'block';
+    } else {
+      btnLoad.style.display = 'none';
+      showNoResultsMessage(
+        "We're sorry, but you've reached the end of search results."
+      );
+    }
+  } catch (error) {
+    loader.style.display = 'none';
+    showNoResultsMessage('Error fetching images. Please try again!');
+    console.error('Помилка сервера:', error.message);
+  }
 
   form.reset();
 });
 
-// Завантаження додаткових фото
 btnLoad.addEventListener('click', async () => {
   if (currentQuery === '') return;
 
   loaderMore.style.display = 'block';
   btnLoad.style.display = 'none';
 
-  await searchImages(currentQuery)
-    .then(({ images }) => {
-      loaderMore.style.display = 'none';
+  try {
+    const { images } = await searchImages(currentQuery);
+    loaderMore.style.display = 'none';
 
-      if (images.length === 0) {
-        showNoResultsMessage(
-          "We're sorry, but you've reached the end of search results."
-        );
-        return;
-      }
+    if (images.length === 0) {
+      showNoResultsMessage(
+        "We're sorry, but you've reached the end of search results."
+      );
+      return;
+    }
 
-      updateGallery(images);
-      smoothScroll();
+    updateGallery(images);
+    smoothScroll();
 
-      imagesLoaded += images.length;
+    imagesLoaded += images.length;
 
-      if (imagesLoaded >= totalHits) {
-        btnLoad.style.display = 'none';
-        showNoResultsMessage(
-          "We're sorry, but you've reached the end of search results."
-        );
-      } else {
-        btnLoad.style.display = 'block';
-      }
-    })
-    .catch(error => {
-      loaderMore.style.display = 'none';
-      showNoResultsMessage('Error loading more images.');
-      console.error('Помилка сервера:', error.message);
-    });
+    if (imagesLoaded >= totalHits) {
+      btnLoad.style.display = 'none';
+      showNoResultsMessage(
+        "We're sorry, but you've reached the end of search results."
+      );
+    } else {
+      btnLoad.style.display = 'block';
+    }
+  } catch (error) {
+    loaderMore.style.display = 'none';
+    showNoResultsMessage('Error loading more images.');
+    console.error('Помилка сервера:', error.message);
+  }
 });
