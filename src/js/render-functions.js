@@ -53,22 +53,16 @@ export function showNoResultsMessage(message) {
     position: 'topRight',
   });
 }
-export function clearGallery() {
-  gallery.innerHTML = '';
-}
+export function smoothScroll() {
+  const firstCard = document.querySelector('.gallery-item');
 
-export function showLoader() {
-  loader.classList.add('is-visible');
-}
+  if (firstCard) {
+    const cardHeight = firstCard.getBoundingClientRect().height;
 
-export function hideLoader() {
-  loader.classList.remove('is-visible');
-}
-
-export function showLoadMoreButton() {
-  loadMoreBtn.classList.add('is-visible');
-}
-
-export function hideLoadMoreButton() {
-  loadMoreBtn.classList.remove('is-visible');
+    window.scrollBy({
+      top: cardHeight * 2,
+      left: 0,
+      behavior: 'smooth',
+    });
+  }
 }
