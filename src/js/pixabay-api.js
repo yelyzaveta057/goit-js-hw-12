@@ -28,6 +28,7 @@ export async function searchImages(query) {
   }
 }
 
+// Скидання  сторінок
 export function resetPage() {
   page = 1;
 }
