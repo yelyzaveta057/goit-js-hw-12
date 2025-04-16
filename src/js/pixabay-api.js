@@ -2,8 +2,8 @@ import axios from 'axios';
 
 const API_KEY = '49711703-11461993d80a106b3cce7e78b';
 const BASE_URL = 'https://pixabay.com/api/';
-const PER_PAGE = 15;
-const page = 1;
+let PER_PAGE = 15;
+let page = 1;
 
 export function searchImages(query) {
   return axios
@@ -18,12 +18,14 @@ export function searchImages(query) {
         page: page,
       },
     })
+
     .then(response => response.data.hits)
     .catch(error => {
       console.error('Помилка під час запиту:', error.message); // Лише виводимо помилку в консоль
       return [];
     });
 }
+
 export function resetPage() {
   page = 1;
 }
