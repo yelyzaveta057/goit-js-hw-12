@@ -12,6 +12,8 @@ export function searchImages(query) {
         image_type: 'photo',
         orientation: 'horizontal',
         safesearch: true,
+        per_page: PER_PAGE,
+        page: page,
       },
     })
     .then(response => response.data.hits)
