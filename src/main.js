@@ -17,10 +17,11 @@ let currentQuery = '';
 let totalHits = 0;
 let imagesLoaded = 0;
 
-// лоадер спочатку прихований
 form.addEventListener('submit', function (event) {
   event.preventDefault();
+
   const query = input.value.trim();
+
   if (query === '') {
     showNoResultsMessage('Please enter a search query!');
     return;
@@ -30,11 +31,13 @@ form.addEventListener('submit', function (event) {
   gallery.innerHTML = '';
   btnLoad.style.display = 'none';
   loader.style.display = 'block';
+
   currentQuery = query;
 
   searchImages(currentQuery)
-    .then(images => {
-      loader.style.display = 'none'; // ховаємо лоадер після отримання результатів
+    .then(({ images, totalHits: hits }) => {
+      loader.style.display = 'none';
+
       if (images.length === 0) {
         showNoResultsMessage(
           'Sorry, there are no images matching your search query. Please try again!'
@@ -65,6 +68,7 @@ form.addEventListener('submit', function (event) {
   form.reset();
 });
 
+// Завантаження додаткових фото
 btnLoad.addEventListener('click', async () => {
   if (currentQuery === '') return;
 
